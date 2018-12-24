@@ -1,0 +1,44 @@
+apiVersion: apps/v1beta1
+kind: StatefulSet
+metadata:
+  namespace: default
+  name: registry
+spec:
+  serviceName: "registry"
+  podManagementPolicy: Parallel
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        component: registry
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: registry
+          image: registry:latest
+          imagePullPolicy: Always
+          env:
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  fieldPath: status.podIP
+            - name: POD_NAMESPACE
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.namespace
+          ports:
+            - containerPort: 5000 
+              name: http
+          volumeMounts:
+            - name: host-time
+              mountPath: /etc/localtime
+              readOnly: true
+            - name: registry-pvc
+              mountPath: /var/lib/registry
+      volumes:
+        - name: host-time
+          hostPath:
+            path: /etc/localtime
+        - name: registry-pvc
+          persistentVolumeClaim:
+            claimName: registry-pvc

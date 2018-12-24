@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  labels:
+    component: registry 
+  name: registry
+spec:
+  clusterIP: 10.254.0.50 
+  selector:
+    component: registry
+  ports:
+    - port: 5000 
+      targetPort: 5000 
+      name: http 
