@@ -27,20 +27,20 @@ sed:
 deploy: export OP=create
 deploy: cp sed
 	-@kubectl ${OP} -f ${MANIFEST}/storageclass.yaml
-	@kubectl ${OP} -f ${MANIFEST}/pv.yaml
-	@kubectl ${OP} -f ${MANIFEST}/statefulset.yaml
-	@kubectl ${OP} -f ${MANIFEST}/service.yaml
-	@kubectl ${OP} -f ${MANIFEST}/pvc.yaml
+	-@kubectl ${OP} -f ${MANIFEST}/pv.yaml
+	-@kubectl ${OP} -f ${MANIFEST}/statefulset.yaml
+	-@kubectl ${OP} -f ${MANIFEST}/service.yaml
+	-@kubectl ${OP} -f ${MANIFEST}/pvc.yaml
 
 del: export OP=delete
 del:
-	@kubectl ${OP} -f ${MANIFEST}/statefulset.yaml
-	@kubectl ${OP} -f ${MANIFEST}/service.yaml
-	@kubectl ${OP} -f ${MANIFEST}/pvc.yaml
-	@kubectl ${OP} -f ${MANIFEST}/pv.yaml
-	@rm -f ${MANIFEST}/statefulset.yaml
-	@rm -f ${MANIFEST}/service.yaml
-	@rm -f ${MANIFEST}/pvc.yaml
+	-@kubectl ${OP} -f ${MANIFEST}/statefulset.yaml
+	-@kubectl ${OP} -f ${MANIFEST}/service.yaml
+	-@kubectl ${OP} -f ${MANIFEST}/pvc.yaml
+	-@kubectl ${OP} -f ${MANIFEST}/pv.yaml
+	-@rm -f ${MANIFEST}/statefulset.yaml
+	-@rm -f ${MANIFEST}/service.yaml
+	-@rm -f ${MANIFEST}/pvc.yaml
 clean: del
 
 .PHONY : test

@@ -10,5 +10,5 @@ spec:
   persistentVolumeReclaimPolicy: Delete
   storageClassName: nfs-storage
   nfs:
-    path: /data/nfs
-    server: 192.168.100.34
+    path: /home/opt/nfs
+    server: 192.168.100.167
